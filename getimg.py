@@ -58,7 +58,7 @@ img_list=getimglist(uid,SESSDATA)
 img_num=float(img_list['imgcount'])
 page_size=float(img_list['pagesize'])
 page_nums=math.ceil(img_num/page_size)
-print (f'page size:{page_size} img_num:{img_num} page_num:{page_nums}'+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+print (f'page size:{page_size} img_num:{img_num} page_num:{page_nums}  '+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 for page in range(page_nums):
     if page==0:
         for image in img_list['images']:
@@ -75,5 +75,6 @@ for page in range(page_nums):
             for src in image['imgs']:
                 print(src)
                 saveimg(src,title)
+    print (f'Now_Page:{page} Left_Pages:{page_nums-page}'+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
 print('done')
