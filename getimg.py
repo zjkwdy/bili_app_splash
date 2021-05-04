@@ -1,4 +1,4 @@
-import requests,math,os,sys,time
+import requests,math,os,sys,time,threading
 
 
 def getimglist(uid,SESSDATA,page=0,page_size=45):
@@ -66,7 +66,7 @@ for page in range(page_nums):
             print(title)
             for src in image['imgs']:
                 print(src)
-                saveimg(src,title)
+                threading.Thread(target=saveimg,args=(src,title)).run()
     else:
         img_list=getimglist(uid,SESSDATA,page)
         for image in img_list['images']:
@@ -74,7 +74,7 @@ for page in range(page_nums):
             print(title)
             for src in image['imgs']:
                 print(src)
-                saveimg(src,title)
+                threading.Thread(target=saveimg,args=(src,title)).run()
     print (f'Now_Page:{page} Left_Pages:{page_nums-page}'+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
 print('done')
