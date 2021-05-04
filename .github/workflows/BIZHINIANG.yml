@@ -28,8 +28,9 @@ jobs:
       - name: BIZHINIANG_GET
         env:
           SESSDATA: ${{ secrets.SESSDATA }}
-        run:
-          getimg.py ${SESSDATA}
+        run: |
+          ls -l
+          py getimg.py ${SESSDATA}
       - name: commit
         run: |
           git config --global user.email 3377911508@@qq.com
