@@ -1,4 +1,4 @@
-import requests,math,os,sys
+import requests,math,os,sys,time
 
 
 def getimglist(uid,SESSDATA,page=0,page_size=45):
@@ -36,6 +36,7 @@ def getimglist(uid,SESSDATA,page=0,page_size=45):
     return result
 
 def saveimg(src,path):
+    print ('start download at '+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     req=requests.get(src)
     if os.path.isdir(path)==False:
         os.makedirs(path)
@@ -43,6 +44,7 @@ def saveimg(src,path):
         fp.write(req.content)
     with open('urls.txt','a') as fp:
         fp.write(src+'\n')
+    print ('end download at '+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     print(path,'save',req.status_code)
 
 
@@ -51,12 +53,12 @@ def saveimg(src,path):
 uid=6823116
 SESSDATA=sys.argv[1]
 page_size=45
-
+print ('start Run at '+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 img_list=getimglist(uid,SESSDATA)
 img_num=float(img_list['imgcount'])
 page_size=float(img_list['pagesize'])
 page_nums=math.ceil(img_num/page_size)
-
+print (f'page size:{page_size} img_num:{img_num} page_num:{page_nums}'+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 for page in range(page_nums):
     if page==0:
         for image in img_list['images']:
