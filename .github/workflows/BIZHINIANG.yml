@@ -53,7 +53,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAILUSERNAME }}
           password: ${{ secrets.MAILPASSWORD }}
-          subject: ZhangJiaKou Weather Report
+          subject: 壁纸娘图片同步到仓库成功
           body: file://report.txt
           to: 3377911508@qq.com
           from: GitHub Actions
