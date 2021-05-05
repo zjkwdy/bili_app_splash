@@ -42,3 +42,19 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GHTO }}
+      - name: Make preview file
+        run: |
+          echo BIZHINIANG IMAGE DOWNLOAD PASSED. > report.txt
+          ls -al >> report.txt
+      - name: "Send mail"
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.163.com
+          server_port: 465
+          username: ${{ secrets.MAILUSERNAME }}
+          password: ${{ secrets.MAILPASSWORD }}
+          subject: ZhangJiaKou Weather Report
+          body: file://report.txt
+          to: 3377911508@qq.com
+          from: GitHub Actions
+          attachments: report.txt
