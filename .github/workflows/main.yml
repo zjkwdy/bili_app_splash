@@ -1,0 +1,54 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: 开屏图下载
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '1 20 * * *'
+    # cron表达式，Actions时区是UTC时间，所以上午9点要往前推8个小时
+
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: 下载开屏图
+        run: |
+          python get_app_splash.py
+      - name: commit
+        run: |
+          git config --global user.email 3377911508@@qq.com
+          git config --global user.name zjkwdy
+          git add .
+          git commit -m "B站开屏图更新" -a
+        
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GHTO }}
+      - name: Make preview file
+        run: |
+          echo bilibili open screen image download ok. > report.txt
+          ls -al ./app_splash/ >> report.txt
+      - name: "Send mail"
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.163.com
+          server_port: 465
+          username: ${{ secrets.MAILUSERNAME }}
+          password: ${{ secrets.MAILPASSWORD }}
+          subject: B站开屏图下载成功
+          body: file://report.txt
+          to: 3377911508@qq.com
+          from: GitHub Actions
