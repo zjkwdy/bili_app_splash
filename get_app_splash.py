@@ -1,4 +1,4 @@
-import requests,os
+import requests,os,json,time
 
 if os.path.isdir('app_splash')==False:
     os.makedirs('app_splash')
@@ -9,9 +9,13 @@ req=requests.get(api)
 
 json_req=req.json()
 
+result={}
+result['lastSync']=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+img_list=[]
 for img in json_req['data']['list']:
     img_id,img_url=img['id'],img['thumb']
     img_format=img_url.split('.')[-1]
+    img_list.append({'id':img_id,'url':f'{str(img_id)}.{img_format}'})
     imgreq=requests.get(img_url)
     try:
         with open(f'app_splash/{str(img_id)}.{img_format}','wb+') as image:
@@ -19,3 +23,7 @@ for img in json_req['data']['list']:
             image.write(imgreq.content)
     except:
         print(f'{img_url} 下载出错。')
+
+result['list']=img_list
+with open('app_splash/images.json','w+') as fp:
+    json.dump(result,fp)
