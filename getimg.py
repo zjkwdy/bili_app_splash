@@ -1,6 +1,5 @@
 import requests,math,os,sys,time,threading
 
-os.system("rm -rf 20*")
 def getimglist(uid,SESSDATA,page=0,page_size=45):
     api_url='http://api.vc.bilibili.com/link_draw/v1/doc/others'
     params={
