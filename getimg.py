@@ -1,6 +1,6 @@
 import requests,math,os,sys,time,threading
 
-
+os.system("rm -rf 20*")
 def getimglist(uid,SESSDATA,page=0,page_size=45):
     api_url='http://api.vc.bilibili.com/link_draw/v1/doc/others'
     params={
@@ -62,7 +62,7 @@ print (f'page size:{page_size} img_num:{img_num} page_num:{page_nums}  '+time.st
 for page in range(page_nums):
     if page==0:
         for image in img_list['images']:
-            title=image['title']
+            title="bizhiniang/"+image['title']
             print(title)
             for src in image['imgs']:
                 print(src)
@@ -70,7 +70,7 @@ for page in range(page_nums):
     else:
         img_list=getimglist(uid,SESSDATA,page)
         for image in img_list['images']:
-            title=image['title']
+            title="bizhiniang/"+image['title']
             print(title)
             for src in image['imgs']:
                 print(src)
