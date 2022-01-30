@@ -31,8 +31,8 @@ jobs:
           python getimg.py ${SESSDATA}
       - name: commit
         run: |
-          git config --global user.email 3377911508@qq.com
-          git config --global user.name zjkwdy
+          git config --global user.email non-reply@github.com
+          git config --global user.name action
           git add .
           git commit -m "update" -a
         
