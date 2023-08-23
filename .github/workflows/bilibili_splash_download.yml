@@ -44,11 +44,11 @@ jobs:
       - name: "Send mail"
         uses: dawidd6/action-send-mail@master
         with:
-          server_address: smtp.163.com
-          server_port: 465
+          server_address: ${{ secrets.STMPADDRESS }}
+          server_port: ${{ secrets.STMPPORT }}
           username: ${{ secrets.MAILUSERNAME }}
           password: ${{ secrets.MAILPASSWORD }}
           subject: B站开屏图下载成功
           body: file://report.txt
-          to: 3377911508@qq.com
+          to: ${{ secrets.RECIPIENTS }}
           from: GitHub Actions
