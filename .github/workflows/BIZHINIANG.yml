@@ -53,6 +53,6 @@ jobs:
           password: ${{ secrets.MAILPASSWORD }}
           subject: 壁纸娘图片同步到仓库成功
           body: file://report.txt
-          to: 3377911508@qq.com
+          to: 8uzqf512@anonaddy.me
           from: GitHub Actions
           attachments: report.txt
